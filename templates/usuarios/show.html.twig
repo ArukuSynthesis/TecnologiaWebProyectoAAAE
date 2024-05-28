@@ -1,11 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Usuarios{% endblock %}
+{% block title %}Usuario{% endblock %}
 
 {% block body %}
-    <h1>Usuarios</h1>
+<div class="container mt-5">
+    <h1>Usuario</h1>
 
-    <table class="table">
+    <table class="table table-bordered">
         <tbody>
             <tr>
                 <th>Id</th>
@@ -16,11 +17,11 @@
                 <td>{{ usuario.nombre }}</td>
             </tr>
             <tr>
-                <th>Apellido_paterno</th>
+                <th>Apellido Paterno</th>
                 <td>{{ usuario.apellidoPaterno }}</td>
             </tr>
             <tr>
-                <th>Apellido_materno</th>
+                <th>Apellido Materno</th>
                 <td>{{ usuario.apellidoMaterno }}</td>
             </tr>
             <tr>
@@ -28,15 +29,15 @@
                 <td>{{ usuario.usuario }}</td>
             </tr>
             <tr>
-                <th>Contrasenia</th>
+                <th>Contraseña</th>
                 <td>{{ usuario.contrasenia }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('app_usuarios_index') }}">back to list</a>
-
-    <a href="{{ path('app_usuarios_edit', {'id': usuario.id}) }}">edit</a>
+    <a href="{{ path('app_usuarios_index') }}" class="btn btn-secondary">Back to list</a>
+    <a href="{{ path('app_usuarios_edit', {'id': usuario.id}) }}" class="btn btn-warning">Edit</a>
 
     {{ include('usuarios/_delete_form.html.twig') }}
+</div>
 {% endblock %}

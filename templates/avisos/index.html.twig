@@ -3,15 +3,16 @@
 {% block title %}Avisos index{% endblock %}
 
 {% block body %}
+<div class="container mt-5">
     <h1>Avisos index</h1>
 
-    <table class="table">
+    <table class="table table-striped">
         <thead>
             <tr>
                 <th>Id</th>
                 <th>Titulo</th>
                 <th>Descripcion</th>
-                <th>actions</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -21,17 +22,18 @@
                 <td>{{ aviso.titulo }}</td>
                 <td>{{ aviso.descripcion }}</td>
                 <td>
-                    <a href="{{ path('app_avisos_show', {'id': aviso.id}) }}">show</a>
-                    <a href="{{ path('app_avisos_edit', {'id': aviso.id}) }}">edit</a>
+                    <a href="{{ path('app_avisos_show', {'id': aviso.id}) }}" class="btn btn-info btn-sm">Show</a>
+                    <a href="{{ path('app_avisos_edit', {'id': aviso.id}) }}" class="btn btn-warning btn-sm">Edit</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">no records found</td>
+                <td colspan="4">No records found</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_avisos_new') }}">Create new</a>
+    <a href="{{ path('app_avisos_new') }}" class="btn btn-success">Create new</a>
+</div>
 {% endblock %}

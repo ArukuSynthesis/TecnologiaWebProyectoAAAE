@@ -3,18 +3,19 @@
 {% block title %}Usuarios index{% endblock %}
 
 {% block body %}
+<div class="container mt-5">
     <h1>Usuarios index</h1>
 
-    <table class="table">
+    <table class="table table-striped">
         <thead>
             <tr>
                 <th>Id</th>
                 <th>Nombre</th>
-                <th>Apellido_paterno</th>
-                <th>Apellido_materno</th>
+                <th>Apellido Paterno</th>
+                <th>Apellido Materno</th>
                 <th>Usuario</th>
-                <th>Contrasenia</th>
-                <th>actions</th>
+                <th>Contraseña</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -27,17 +28,18 @@
                 <td>{{ usuario.usuario }}</td>
                 <td>{{ usuario.contrasenia }}</td>
                 <td>
-                    <a href="{{ path('app_usuarios_show', {'id': usuario.id}) }}">show</a>
-                    <a href="{{ path('app_usuarios_edit', {'id': usuario.id}) }}">edit</a>
+                    <a href="{{ path('app_usuarios_show', {'id': usuario.id}) }}" class="btn btn-info btn-sm">Show</a>
+                    <a href="{{ path('app_usuarios_edit', {'id': usuario.id}) }}" class="btn btn-warning btn-sm">Edit</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="7">no records found</td>
+                <td colspan="7">No records found</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_usuarios_new') }}">Create new</a>
+    <a href="{{ path('app_usuarios_new') }}" class="btn btn-success">Create new</a>
+</div>
 {% endblock %}

@@ -1,20 +1,55 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Iniciar Sesión{% endblock %}
+{% block title %}Login{% endblock %}
 
-{% block body %}
-    <h1>Iniciar Sesión</h1>
-
-    <form action="{{ path('login') }}" method="post">
-        <label for="username">Usuario:</label><br>
-        <input type="text" id="usuario" name="_username" required><br><br>
-
-        <label for="password">Contraseña:</label><br>
-        <input type="password" id="contrasenia" name="_password" required><br><br>
-
-        <button type="submit">Iniciar Sesión</button>
-        
-    </form>
-    
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .login-container {
+            margin-top: 100px;
+            max-width: 400px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .login-title {
+            margin-bottom: 20px;
+        }
+    </style>
 {% endblock %}
 
+{% block body %}
+<div class="container">
+    <div class="login-container mx-auto">
+        <h1 class="login-title text-center">Iniciar Sesión</h1>
+
+        {% if error_message %}
+            <div class="alert alert-danger">{{ error_message }}</div>
+        {% endif %}
+
+        <form method="post" action="{{ path('login') }}">
+            <div class="form-group">
+                <label for="_username">Usuario</label>
+                <input type="text" id="_username" name="_username" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="_password">Contraseña</label>
+                <input type="password" id="_password" name="_password" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Iniciar sesión</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+{% endblock %}

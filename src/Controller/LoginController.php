@@ -1,7 +1,8 @@
 <?php
+
 namespace App\Controller;
 
-use App\Entity\Usuarios;
+use App\Form\LoginType;
 use App\Repository\UsuariosRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,23 +22,28 @@ class LoginController extends AbstractController
     #[Route('/login', name: 'login', methods: ['GET', 'POST'])]
     public function login(Request $request, UsuariosRepository $usuariosRepository): Response
     {
-        if ($request->isMethod('POST')) {
-            $usuario = $request->request->get('_username');
-            $contrasenia = $request->request->get('_password');
+        $form = $this->createForm(LoginType::class);
+        $form->handleRequest($request);
 
-            $user = $usuariosRepository->findOneByUsuario($contrasenia);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $usuario = $data['_username'];
+            $contrasenia = $data['_password'];
 
-            if ($user && password_verify($password, $user->getContrasenia())) {
-                // Usuario y contraseña correctos, redirigir al usuario a la página de avisos
+            $user = $usuariosRepository->findOneBy(['usuario' => $usuario]);
+
+            if ($user && password_verify($contrasenia, $user->getContrasenia())) {
                 return $this->redirectToRoute('app_avisos_index', [], Response::HTTP_SEE_OTHER);
             } else {
-                // Usuario y/o contraseña incorrectos, puedes mostrar un mensaje de error o volver a mostrar el formulario de inicio de sesión
                 return $this->render('login/login.html.twig', [
                     'error_message' => 'Usuario y/o contraseña incorrectos',
+                    'form' => $form->createView(),
                 ]);
             }
         }
 
-        // Si se está accediendo a la página de inicio de sesión a través de GET, simplemente muestra el formulario de inicio de sesión
+        return $this->render('login/login.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 }

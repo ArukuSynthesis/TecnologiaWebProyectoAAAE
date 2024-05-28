@@ -1,50 +1,65 @@
 <?php
 
+// src/Entity/Avisos.php
 namespace App\Entity;
 
 use App\Repository\AvisosRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
-#[ORM\Entity(repositoryClass: AvisosRepository::class)]
+/**
+ * @ORM\Entity(repositoryClass=AvisosRepository::class)
+ * @Vich\Uploadable
+ */
 class Avisos
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: 'string', length: 255)]
     private ?string $titulo = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(type: 'text', nullable: true)]
     private ?string $descripcion = null;
 
-    public function getId(): ?int
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $imagen = null;
+
+    /**
+     * @Vich\UploadableField(mapping="avisos_images", fileNameProperty="imagen")
+     * @var File|null
+     */
+    private $imagenFile;
+
+    // getters y setters...
+
+    public function setImagenFile(?File $imagenFile = null): void
     {
-        return $this->id;
+        $this->imagenFile = $imagenFile;
+
+        if (null !== $imagenFile) {
+            // Se necesita para la actualización en la base de datos
+            $this->updatedAt = new \DateTimeImmutable();
+        }
     }
 
-    public function getTitulo(): ?string
+    public function getImagenFile(): ?File
     {
-        return $this->titulo;
+        return $this->imagenFile;
     }
 
-    public function setTitulo(string $titulo): static
+    public function setImagen(?string $imagen): self
     {
-        $this->titulo = $titulo;
+        $this->imagen = $imagen;
 
         return $this;
     }
 
-    public function getDescripcion(): ?string
+    public function getImagen(): ?string
     {
-        return $this->descripcion;
-    }
-
-    public function setDescripcion(?string $descripcion): static
-    {
-        $this->descripcion = $descripcion;
-
-        return $this;
+        return $this->imagen;
     }
 }

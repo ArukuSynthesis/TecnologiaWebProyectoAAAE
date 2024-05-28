@@ -20,7 +20,7 @@ class AvisosRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Avisos::class);
     }
-
+}
 //    /**
 //     * @return Avisos[] Returns an array of Avisos objects
 //     */
@@ -45,4 +45,4 @@ class AvisosRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
-}
+

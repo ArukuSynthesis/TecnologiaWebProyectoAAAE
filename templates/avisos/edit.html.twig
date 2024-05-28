@@ -1,13 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Avisos{% endblock %}
+{% block title %}Edit Aviso{% endblock %}
 
 {% block body %}
-    <h1>Edit Avisos</h1>
+<div class="container mt-5">
+    <h1>Edit Aviso</h1>
 
     {{ include('avisos/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('app_avisos_index') }}">back to list</a>
+    <a href="{{ path('app_avisos_index') }}" class="btn btn-secondary mt-3">Back to list</a>
 
     {{ include('avisos/_delete_form.html.twig') }}
+</div>
 {% endblock %}
